@@ -51,15 +51,16 @@ export class AddPlayerUseCase {
         const verifyEmailPlayer = await this.playersRepository.findByEmail(email);
         if(verifyEmailPlayer) throw new PlayerAlreadyExistsError();
 
-        //se alguns dos campos que tem a possibilidade de vir = null for = null, transforme para string vazia
+
         if(tell === null) tell = 'dado não informado';
-        if(ftd_date === null) ftd_date = 'dado não informado';
-        if(platform_regitration_date === null) platform_regitration_date = 'dado não informado';
+        //as datas não podem receber null pois são do tipo DateTime, 
+        //então quando vem null é convertido para a data abaixo, para deixar mais explicito que o dado não foi enviado
+        if(ftd_date === null) ftd_date = '1000-01-01 21:25:59';
+        if(platform_regitration_date === null) platform_regitration_date = '1000-01-01 21:25:59';
 
         const parsedDate = new Date(date_birth);
         const parsedFtdDate = new Date(ftd_date);
         const parsedPlataformRegistrationDate = new Date(platform_regitration_date);
-
 
         const newPlayer = await this.playersRepository.createPlayer({
             id_platform,

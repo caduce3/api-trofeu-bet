@@ -48,7 +48,7 @@ model Player {
   tell                      String
   email                     String    @unique
   date_created              DateTime
-  date_birth                DateTime
+  date_birth                DateTime?
   platform_regitration_date DateTime?
   Wallet                    Wallet?
 
@@ -59,7 +59,7 @@ model Wallet {
   id                   String   @id @default(uuid())
   id_player            String   @unique
   ftd_value            Float
-  ftd_date             DateTime
+  ftd_date             DateTime?
   qtd_deposits         Int
   total_deposit_amount Float
   total_withdrawals    Float
