@@ -58,7 +58,7 @@ export class AddPlayerUseCase {
 
         const parsedDate = new Date(date_birth);
         const parsedFtdDate = new Date(ftd_date);
-        const parsedPlataformRegistrationDate = new Date(platform_regitration_date)
+        const parsedPlataformRegistrationDate = new Date(platform_regitration_date);
 
 
         const newPlayer = await this.playersRepository.createPlayer({
