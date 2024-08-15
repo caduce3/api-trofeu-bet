@@ -52,9 +52,9 @@ export class AddPlayerUseCase {
         if(verifyEmailPlayer) throw new PlayerAlreadyExistsError();
 
         //se alguns dos campos que tem a possibilidade de vir = null for = null, transforme para string vazia
-        if(tell === null) tell = '';
-        if(ftd_date === null) ftd_date = '';
-        if(platform_regitration_date === null) platform_regitration_date = '';
+        if(tell === null) tell = 'dado não informado';
+        if(ftd_date === null) ftd_date = 'dado não informado';
+        if(platform_regitration_date === null) platform_regitration_date = 'dado não informado';
 
         const parsedDate = new Date(date_birth);
         const parsedFtdDate = new Date(ftd_date);
