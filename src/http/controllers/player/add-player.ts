@@ -10,14 +10,15 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
         id_platform: z.number(),
         email: z.string(),
         name: z.string(),
-        tell: z.string(),
+        tell: z.string().nullable(),
         date_birth: z.string(),
         ftd_value: z.number(),
-        ftd_date: z.string(),
+        ftd_date: z.string().nullable(),
         qtd_deposits: z.number(),
         total_deposit_amount: z.number(),
         total_withdrawals: z.number(),
-        qtd_withdrawals: z.number()
+        qtd_withdrawals: z.number(),
+        platform_regitration_date: z.string().nullable()
     })
 
     const { 
@@ -31,7 +32,8 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
         qtd_deposits, 
         total_deposit_amount, 
         total_withdrawals, 
-        qtd_withdrawals 
+        qtd_withdrawals ,
+        platform_regitration_date
     } = addPlayerBodySchema.parse(request.body)
 
     try {
@@ -48,7 +50,8 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
             qtd_deposits,
             total_deposit_amount,
             total_withdrawals,
-            qtd_withdrawals
+            qtd_withdrawals,
+            platform_regitration_date
         })
 
     } catch (error) {

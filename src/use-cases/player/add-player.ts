@@ -10,14 +10,15 @@ interface AddPlayerRequest {
     id_platform: number;
     email: string;
     name: string;
-    tell: string;
+    tell: string | null;
     date_birth: string;
     ftd_value: number;
-    ftd_date: string;
+    ftd_date: string | null;
     qtd_deposits: number;
     total_deposit_amount: number;
     total_withdrawals: number;
     qtd_withdrawals: number;
+    platform_regitration_date: string | null;
 }
 
 interface AddPlayerResponse {
@@ -40,7 +41,8 @@ export class AddPlayerUseCase {
         qtd_deposits,
         total_deposit_amount,
         total_withdrawals,
-        qtd_withdrawals
+        qtd_withdrawals,
+        platform_regitration_date
     }: AddPlayerRequest): Promise<AddPlayerResponse> {
         
         const player = await this.playersRepository.findByIdPlatform(id_platform);
@@ -49,8 +51,15 @@ export class AddPlayerUseCase {
         const verifyEmailPlayer = await this.playersRepository.findByEmail(email);
         if(verifyEmailPlayer) throw new PlayerAlreadyExistsError();
 
+        //se alguns dos campos que tem a possibilidade de vir = null for = null, transforme para string vazia
+        if(tell === null) tell = '';
+        if(ftd_date === null) ftd_date = '';
+        if(platform_regitration_date === null) platform_regitration_date = '';
+
         const parsedDate = new Date(date_birth);
         const parsedFtdDate = new Date(ftd_date);
+        const parsedPlataformRegistrationDate = new Date(platform_regitration_date)
+
 
         const newPlayer = await this.playersRepository.createPlayer({
             id_platform,
@@ -59,6 +68,7 @@ export class AddPlayerUseCase {
             tell,
             date_birth: parsedDate,
             date_created: new Date(),
+            platform_regitration_date: parsedPlataformRegistrationDate,
             Wallet: {
                 create: {
                     ftd_value,

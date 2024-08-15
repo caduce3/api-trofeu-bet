@@ -42,14 +42,15 @@ model User {
 }
 
 model Player {
-  id           String   @id @default(uuid())
-  id_platform  Int      @unique
-  name         String
-  tell         String
-  email        String   @unique
-  date_created DateTime
-  date_birth   DateTime
-  Wallet       Wallet?
+  id                        String    @id @default(uuid())
+  id_platform               Int       @unique
+  name                      String
+  tell                      String
+  email                     String    @unique
+  date_created              DateTime
+  date_birth                DateTime
+  platform_regitration_date DateTime?
+  Wallet                    Wallet?
 
   @@map("players")
 }
