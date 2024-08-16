@@ -6,7 +6,8 @@ const envSchema = z.object({
     PORT: z.coerce.number().default(3333),  
     DATABASE_CLIENT: z.enum(['pg']),
     DATABASE_URL: z.string(),
-    NODE_VERSION: z.string()
+    NODE_VERSION: z.string(),
+    JWT_SECRET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

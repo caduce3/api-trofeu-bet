@@ -39,7 +39,7 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
     try {
         const addPlayerUseCase = makeAddPlayerUseCase()
 
-        await addPlayerUseCase.execute({
+        const player = await addPlayerUseCase.execute({
             id_platform,
             email,
             name,
@@ -54,6 +54,11 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
             platform_regitration_date
         })
 
+        return reply.status(201).send({
+            message: "Player criado com sucesso!",
+            player
+        })
+
     } catch (error) {
         if(
             error instanceof PlayerAlreadyExistsError ||
@@ -64,6 +69,4 @@ export async function addPlayer(request: FastifyRequest, reply: FastifyReply) {
 
         throw error
     }
-
-    return reply.status(201).send({message: "Usuário autenticado com sucesso!"})
 }
